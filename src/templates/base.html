@@ -34,6 +34,7 @@
             position: fixed;
             top: 0;
             z-index: 1000;
+            /* display: inline; */
         }
         .top-banner a {
             display: flex;
@@ -57,48 +58,31 @@
             padding-left: 0px;
             padding-right: 0px;
         }
-        .auth-links {
-            font-size: 1em;
-            display: flex;
-            align-items: center;
+        .inline-links {
+            display: inline-block; /* Ensures the container acts like an inline element */
+            text-align: left;      /* Optional: Align text */
+            vertical-align: middle; /* Optional: Adjust vertical alignment */
         }
-        .auth-links a {
-            color: white;
-            margin-left: 10px;
-            text-decoration: none;
-            padding: 0 12px;
-            border-radius: 5px;
-            height: 30px;
-            line-height: 30px;
-        }
-        .auth-links a.login {
-            background-color: #4CAF50;
-        }
-        .auth-links a.logout {
-            background-color: #f44336;
-        }
-        .auth-links a.login:hover {
-            background-color: #45a049;
-        }
-        .auth-links a.logout:hover {
-            background-color: #e53935;
-        }
-        .auth-links .user-list-link {
-            color: rgb(160, 160, 160);
-            margin-right: 20px;
-            text-decoration: none;
-        }
-        .auth-links i {
-            margin-right: 5px;
+        .inline-links a {
+            display: inline;       /* Ensure links remain inline */
+            /* margin-right: 10px; */    /* Adds spacing between links (optional) */
+            text-decoration: none; /* Optional: Removes underline for cleaner look */
         }
     </style>
 </head>
 <body>
     <div class="top-banner">
-        <a href="{{ url_for('main.index') }}">
-            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
-            <h1>Malaria Detection App</h1>
-        </a>
+        <div class="top-banner-title">
+            <a href="{{ url_for('main.index') }}">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
+                <h1>Malaria Detection App</h1>
+            </a>
+        </div>
+        <div class="inline-links">
+            <a href="https://www.tensorflow.org/datasets/catalog/malaria?hl=fr">Dataset Info</a> |
+            <a href="https://www.tensorflow.org/tutorials/images/classification?hl=fr">Model info</a>&nbsp; &nbsp;
+            <a href="https://github.com/TonyVallad/Malaria-Detection-App" target="_blank"><img src="{{ url_for('static', filename='img/github_dark.png') }}" alt="Logo"></a>
+        </div>
     </div>
 
     <!-- Content block for specific pages -->
