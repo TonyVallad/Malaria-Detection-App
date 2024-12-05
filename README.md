@@ -2,7 +2,7 @@
 
 <p align="center">
   <!-- <img src="src/static/img/logo.png" alt="Nutri-Score Logo"> -->
-  <img src="src/static/img/cells.webp" alt="Nutri-Score Logo" height="400">
+  <img src="src/static/img/cells.webp" alt="Nutri-Score Logo" width="300">
 </p>
 
 A web application that allows users to upload files for malaria detection. The app processes uploaded images or files to assist in the detection of malaria, providing a simple and user-friendly interface.
