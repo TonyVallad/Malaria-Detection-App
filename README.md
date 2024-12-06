@@ -12,6 +12,14 @@ A web application that allows users to upload files for malaria detection. The a
 - **Responsive Design:** Accessible on desktop and mobile devices.
 - **Simple Interface:** User-friendly and easy to navigate.
 
+## Training Data
+- **Website:** https://www.tensorflow.org/datasets/catalog/malaria?hl=fr
+- **Samples:**
+
+<p align="center">
+  <img src="src/static/img/samples.png" alt="Samples">
+</p>
+
 ---
 
 ## Technologies Used
@@ -51,7 +59,7 @@ Make sure you have the following installed:
 ---
 
 <p align="center">
-  <img src="src/static/img/screenshot.png" alt="Nutri-Score Logo">
+  <img src="src/static/img/screenshot.png" alt="Screenshot">
 </p>
 
 ## Usage
