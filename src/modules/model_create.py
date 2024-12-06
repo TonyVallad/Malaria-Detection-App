@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 import tensorflow_datasets as tfds
 from tensorflow.keras import layers, models
+from tensorflow.keras.layers import Input, Dropout
+from tensorflow.keras.callbacks import EarlyStopping
 from sklearn.metrics import confusion_matrix, classification_report
 
 # Adjust the path to access the config file from the root directory
@@ -49,12 +51,16 @@ def create_model():
 
     # Define a CNN model
     model = models.Sequential([
-        layers.Conv2D(32, (3, 3), activation='relu', input_shape=(IMG_SIZE, IMG_SIZE, 3)),
+        Input(shape=(IMG_SIZE, IMG_SIZE, 3)),  # Define the input shape explicitly
+        layers.Conv2D(32, (3, 3), activation='relu'),
         layers.MaxPooling2D((2, 2)),
+        Dropout(0.5),  # Add dropout after the first MaxPooling layer
         layers.Conv2D(64, (3, 3), activation='relu'),
         layers.MaxPooling2D((2, 2)),
+        Dropout(0.5),  # Add dropout after the second MaxPooling layer
         layers.Flatten(),
         layers.Dense(128, activation='relu'),
+        Dropout(0.5),  # Add dropout before the final dense layer
         layers.Dense(1, activation='sigmoid')  # Binary classification
     ])
 
@@ -62,10 +68,23 @@ def create_model():
     model.compile(optimizer='adam',
                   loss='binary_crossentropy',
                   metrics=['accuracy'])
+    
+    # Early stopping to prevent overfitting
+    early_stopping = EarlyStopping(
+        monitor='val_loss',    # Surveille la perte de validation
+        patience=3,            # Arrête l’entraînement après 3 epochs sans amélioration
+        restore_best_weights=True  # Restaure les poids du meilleur modèle
+    )
 
     # Train the model
     print(f"\n{Config.YELLOW}Training model...{Config.RESET}")
-    model.fit(train_dataset, epochs=10, validation_data=test_dataset)
+    history = model.fit(
+        train_dataset,
+        batch_size=BATCH_SIZE,
+        epochs=20,
+        validation_data=test_dataset,
+        callbacks=[early_stopping]
+    )
     
     # Save the model
     print(f"\n{Config.YELLOW}Saving model...{Config.RESET}")
