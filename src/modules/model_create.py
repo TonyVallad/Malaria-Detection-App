@@ -28,7 +28,7 @@ def preprocess(image, label):
 def create_model():
     # Load the Malaria dataset
     print(f"\n{Config.YELLOW}Loading dataset...{Config.RESET}")
-    dataset, info = tfds.load('malaria', as_supervised=True, with_info=True)
+    dataset, info = tfds.load('malaria', as_supervised=True, with_info=True, data_dir=Config.DATA_DIR)
     
     # Get the total number of samples
     total_samples = info.splits['train'].num_examples

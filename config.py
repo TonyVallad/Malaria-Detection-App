@@ -8,6 +8,9 @@ class Config:
     YELLOW = "\033[93m"
     RED = "\033[91m"
     RESET = "\033[0m"  # White
+
+    # Specify the directory where the training data will be stored
+    DATA_DIR = 'src/static/data'
     
     # AI Model
     MODEL_DIR = "src/static/model/"
