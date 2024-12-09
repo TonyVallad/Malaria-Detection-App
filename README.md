@@ -7,8 +7,25 @@
 
 A web application that allows users to upload files for malaria detection. The app processes uploaded images or files to assist in the detection of malaria, providing a simple and user-friendly interface.
 
+## Table of Contents
+1. [Features](#features)
+2. [Training Data](#training-data)
+3. [Technologies Used](#technologies-used)
+4. [Prerequisites](#prerequisites)
+5. [Installation](#installation)
+6. [Screenshots](#screenshots)
+7. [Usage](#usage)
+8. [Project Structure](#project-structure)
+9. [Environment Variables](#environment-variables)
+10. [Future Enhancements](#future-enhancements)
+11. [Contributing](#contributing)
+12. [License](#license)
+13. [Acknowledgments](#acknowledgments)
+
+---
+
 ## Features
-- **File Upload:** Upload images or documents for analysis.
+- **File Upload:** Upload images for analysis.
 - **Responsive Design:** Accessible on desktop and mobile devices.
 - **Simple Interface:** User-friendly and easy to navigate.
 
@@ -58,16 +75,17 @@ Make sure you have the following installed:
 
 ---
 
+## Screenshots
 <p align="center">
-  <img src="src/static/img/screenshot_index.png" alt="Screenshot">
+  <img src="src/static/img/screenshot_index.png" alt="Index Screenshot">
 </p>
 
 <p align="center">
-  <img src="src/static/img/screenshot_infected.png" alt="Screenshot">
+  <img src="src/static/img/screenshot_infected.png" alt="Infected Screenshot">
 </p>
 
 <p align="center">
-  <img src="src/static/img/screenshot_not_infected.png" alt="Screenshot">
+  <img src="src/static/img/screenshot_not_infected.png" alt="Not Infected Screenshot">
 </p>
 
 ## Usage
@@ -85,7 +103,8 @@ Make sure you have the following installed:
    ```
 
 3. **Upload Files:**
-   - Click the "Upload" button to select and upload a file.
+   - Drop the image file or click on the dropzone to select image to analyze.
+   - Press the 'Analyze' button.
    - The server will process the file and display relevant information or results.
 
 ---
@@ -134,7 +153,30 @@ This app uses a secret key for session management. Set the following environment
 ---
 
 ## Future Enhancements
-- **Malaria Detection Algorithm Integration:** Incorporate a machine learning model to analyze uploaded images and detect malaria.
+
+With the upload functionality and machine learning model already operational, the next steps for improving the Malaria Detection App are as follows:
+
+### Planned Improvements:
+1. **UI Enhancements:**
+   - Improve the user interface to make it more visually appealing and user-friendly.
+
+2. **Enhanced Analysis Results:**
+   - Provide clearer and more detailed analysis results, including additional insights where possible.
+
+3. **Training Data Information:**
+   - Develop a `/training-data` route to display detailed information about the dataset used to train the model.
+
+4. **Model Details:**
+   - Create a `/model-details` route to display technical information about the machine learning model, including architecture, performance metrics, and training details.
+
+5. **Analysis History:**
+   - Implement a `/history` route to show all previous image analyses and their results.
+   - Use a SQLite database to store analysis results, enabling users to review past analyses.
+
+### Potential Additions (Under Consideration):
+- **Image Validation and Preprocessing:**
+  - Develop a model to verify whether an uploaded image is a valid cell image and properly prepared.
+  - Ensure that irrelevant parts of the image (non-cell pixels) are painted black before analysis.
 
 ---
 
