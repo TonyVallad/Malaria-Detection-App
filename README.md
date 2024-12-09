@@ -93,23 +93,30 @@ Make sure you have the following installed:
 ## Project Structure
 
 ```
-Malaria-Detection-App/ (todo, not up to date)
+Malaria-Detection-App/
 │
-├── static/                 # Static files (CSS, JS, images)
-│   ├── css/
-│   ├── img/
-│   └── ...
+├── src/                    # Source code folder
+│   ├── modules/            # Contains Python modules for creating and training the model
+│   │   └── model_create.py
+│   ├── routes/             # Contains route definitions for the Flask app
+│   │   └── routes.py
+│   ├── static/             # Static files for the application
+│   │   ├── img/            # Images used in the app
+│   │   ├── model/          # Directory containing the trained model
+│   │   │   └── model.keras
+│   │   └── uploads/        # Directory to store uploaded files (created automatically)
+│   └── templates/          # HTML templates for the application
+│       ├── base.html       # Base template (top banner)
+│       ├── index.html      # Landing page template
+│       └── analysis.html   # Analysis results page
 │
-├── templates/              # HTML templates
-│   ├── base.html
-│   ├── index.html
-│   └── ...
-│
-├── app.py                  # Main application logic
-├── requirements.txt        # Python dependencies
-├── uploads/                # Directory to store uploaded files
+├── .gitignore              # Git ignore file
+├── app.py                  # Main application entry point
+├── config.py               # Application configuration settings
+├── LICENSE                 # License file
+├── Model_Creation.ipynb    # Jupyter notebook for model creation and testing
 ├── README.md               # Project documentation
-└── ...
+└── requirements.txt        # Python dependencies
 ```
 
 ---
