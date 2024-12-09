@@ -8,7 +8,8 @@ def create_app():
 
     :return: The configured Flask application instance.
     """
-    app = Flask(__name__)
+    # app = Flask(__name__)
+    app = Flask(__name__, static_folder='static')
     app.config.from_object(Config)
     
     app.secret_key = Config.SECRET_KEY

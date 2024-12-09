@@ -34,7 +34,6 @@
             position: fixed;
             top: 0;
             z-index: 1000;
-            /* display: inline; */
         }
         .top-banner a {
             display: flex;
@@ -42,7 +41,7 @@
             text-decoration: none;
             color: inherit;
             margin-left: 0;
-            padding-left: 0; /* Align banner with the left edge */
+            padding-left: 0;
         }
         .top-banner img {
             height: 30px;
@@ -59,14 +58,13 @@
             padding-right: 0px;
         }
         .inline-links {
-            display: inline-block; /* Ensures the container acts like an inline element */
-            text-align: left;      /* Optional: Align text */
-            vertical-align: middle; /* Optional: Adjust vertical alignment */
+            display: inline-block;
+            text-align: left;
+            vertical-align: middle;
         }
         .inline-links a {
-            display: inline;       /* Ensure links remain inline */
-            /* margin-right: 10px; */    /* Adds spacing between links (optional) */
-            text-decoration: none; /* Optional: Removes underline for cleaner look */
+            display: inline;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -81,7 +79,9 @@
         <div class="inline-links">
             <a href="https://www.tensorflow.org/datasets/catalog/malaria?hl=fr" target="_blank">Training data</a> |
             <a href="https://www.tensorflow.org/tutorials/images/classification?hl=fr" target="_blank">Model info</a>&nbsp; &nbsp;
-            <a href="https://github.com/TonyVallad/Malaria-Detection-App" target="_blank"><img src="{{ url_for('static', filename='img/github_dark.png') }}" alt="Logo"></a>
+            <a href="https://github.com/TonyVallad/Malaria-Detection-App" target="_blank">
+                <img src="{{ url_for('static', filename='img/github_dark.png') }}" alt="GitHub Logo">
+            </a>
         </div>
     </div>
 

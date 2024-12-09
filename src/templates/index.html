@@ -10,13 +10,17 @@
                 <img src="{{ url_for('static', filename='img/cells.webp') }}" alt="Site Logo" style="max-width: 400px; height: auto; margin-bottom: 0px;">
                 <h1>Malaria Detection App</h1>
 
-                <h4>Upload an image to let the AI model detect if it is infected with malaria or not</h4>
+                <h4>Drag and drop an image to let the AI model detect if it is infected with malaria or not</h4>
 
-                <!-- File Upload Section -->
-                <form action="{{ url_for('main.upload_file') }}" method="POST" enctype="multipart/form-data" style="margin-top: 20px;">
-                    <input type="file" name="file" id="file-upload" accept=".jpg,.jpeg,.png" style="margin-top: 10px;">
-                    <br>
-                    <button type="submit" style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; font-size: 16px; margin-top: 20px; cursor: pointer; border-radius: 5px;"><img src="https://img.icons8.com/?size=100&id=62903&format=png&color=FFFFFF" alt="Search" style="max-height: 20px;"> Analyze</button>
+                <!-- File Drop Zone Section -->
+                <form action="{{ url_for('main.analysis') }}" method="POST" enctype="multipart/form-data" id="upload-form">
+                    <div id="drop-zone">
+                        <p id="drop-zone-text">Drag & drop your file here or click to upload</p>
+                        <input type="file" name="file" id="file-upload" accept=".jpg,.jpeg,.png">
+                    </div>
+                    <button type="submit" style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; font-size: 16px; margin-top: 20px; cursor: pointer; border-radius: 5px;">
+                        <img src="https://img.icons8.com/?size=100&id=62903&format=png&color=FFFFFF" alt="Search Icon" style="max-height: 20px;"> Analyze
+                    </button>
                 </form>
             </div>
         </div>
@@ -25,11 +29,11 @@
 
 <style>
     body {
-        background-color: #202020; /* Set the entire page background to black */
-        color: white; /* Ensure text is visible on black background */
+        background-color: #202020;
+        color: white;
     }
     .full-height-container {
-        height: calc(100vh - 50px); /* Full viewport height minus the height of the top banner */
+        height: calc(100vh - 50px);
     }
     .container {
         text-align: center;
@@ -38,5 +42,64 @@
     .row {
         margin: 0;
     }
+    #drop-zone {
+        margin-top: 20px;
+        border: 2px dashed #4CAF50;
+        height: 200px; /* Increased height */
+        padding: 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        text-align: center;
+        color: white;
+        font-size: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    #drop-zone p {
+        margin: 0;
+    }
+    #file-upload {
+        display: none; /* Hide the default file input */
+    }
 </style>
+
+<script>
+    const dropZone = document.getElementById("drop-zone");
+    const fileInput = document.getElementById("file-upload");
+    const dropZoneText = document.getElementById("drop-zone-text");
+    const uploadForm = document.getElementById("upload-form");
+
+    dropZone.addEventListener("click", () => {
+        fileInput.click(); // Trigger the file input click
+    });
+
+    dropZone.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropZone.style.borderColor = "#00FF00"; // Highlight border
+    });
+
+    dropZone.addEventListener("dragleave", () => {
+        dropZone.style.borderColor = "#4CAF50"; // Reset border color
+    });
+
+    dropZone.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dropZone.style.borderColor = "#4CAF50"; // Reset border color
+
+        if (e.dataTransfer.files.length) {
+            fileInput.files = e.dataTransfer.files; // Assign dropped files to the input
+            const fileName = e.dataTransfer.files[0].name; // Get file name
+            dropZoneText.textContent = `Selected file: ${fileName}`;
+        }
+    });
+
+    fileInput.addEventListener("change", () => {
+        if (fileInput.files.length) {
+            const fileName = fileInput.files[0].name; // Get file name
+            dropZoneText.textContent = `Selected file: ${fileName}`;
+        }
+    });
+</script>
 {% endblock %}

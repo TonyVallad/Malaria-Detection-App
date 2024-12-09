@@ -9,6 +9,10 @@ class Config:
     RED = "\033[91m"
     RESET = "\033[0m"  # White
     
+    # Image settings
+    IMG_SIZE = 128
+    BATCH_SIZE = 32
+    
     # AI Model
     MODEL_DIR = "src/static/model/"
     MODEL_NAME = 'model.keras'

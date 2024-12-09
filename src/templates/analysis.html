@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Analysis Result{% endblock %}
+
+{% block content %}
+<div class="full-height-container d-flex flex-column">
+    <div class="row flex-grow-1 d-flex justify-content-center align-items-center">
+        <div class="col-md-12 text-center">
+            <div class="container">
+                <h1>Malaria Detection Result</h1>
+
+                <!-- Image Section -->
+                <img src="{{ file_url }}" alt="Uploaded Image" style="max-width: 300px; margin: 20px auto; display: block;">
+
+                <!-- Results Section -->
+                <br> <h3>Results of analysis:</h3>
+                <h4 style="color: {{ 'red' if result == 'Infected' else '#00CC00' }}"><b>{{ result }}</b></h4>
+
+                <!-- Confidence Section -->
+                <div style="margin-top: 20px;">
+                    <h5>Confidence:</h5>
+                    <h4 style="font-size: 24px; 
+                               font-weight: bold; 
+                               color: rgb(
+                                   {{ 255 - 255 * ((confidence - 50) / 50) }}, 
+                                   {{ 200 * ((confidence - 50) / 50) }}, 
+                                   0
+                               );">
+                        {{ "%.2f" % confidence }}%
+                    </h4>
+                </div>
+
+                <!-- Navigation Link -->
+                <br> <a href="{{ url_for('main.index') }}" 
+                    style="margin-top: 20px; 
+                        display: inline-block; 
+                        background-color: #4CAF50; 
+                        color: white; 
+                        border: none; 
+                        padding: 10px 20px; 
+                        font-size: 16px; 
+                        text-align: center; 
+                        cursor: pointer; 
+                        border-radius: 5px; 
+                        text-decoration: none;">
+                    Try Another Image
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #202020; /* Match the background color of index.html */
+        color: white;
+    }
+    .full-height-container {
+        height: calc(100vh - 50px);
+    }
+    .container {
+        text-align: center;
+        transform: translateY(-50px);
+    }
+    .row {
+        margin: 0;
+    }
+</style>
+{% endblock %}
