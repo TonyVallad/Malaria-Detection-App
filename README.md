@@ -59,7 +59,15 @@ Make sure you have the following installed:
 ---
 
 <p align="center">
-  <img src="src/static/img/screenshot.png" alt="Screenshot">
+  <img src="src/static/img/screenshot_index.png" alt="Screenshot">
+</p>
+
+<p align="center">
+  <img src="src/static/img/screenshot_infected.png" alt="Screenshot">
+</p>
+
+<p align="center">
+  <img src="src/static/img/screenshot_not_infected.png" alt="Screenshot">
 </p>
 
 ## Usage

@@ -21,7 +21,7 @@
                         <img id="file-preview" src="" alt="File Preview" style="max-width: 100%; max-height: 100%; display: none; border-radius: 5px;">
                         <input type="file" name="file" id="file-upload" accept=".jpg,.jpeg,.png">
                     </div>
-                    <button type="submit" style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; font-size: 16px; margin-top: 20px; cursor: pointer; border-radius: 5px;">
+                    <button type="submit" style="background-color: #ad1838; color: white; border: none; padding: 10px 20px; font-size: 16px; margin-top: 20px; cursor: pointer; border-radius: 5px;">
                         <img src="https://img.icons8.com/?size=100&id=62903&format=png&color=FFFFFF" alt="Search Icon" style="max-height: 20px;"> Analyze
                     </button>
                 </form>
@@ -32,7 +32,7 @@
 
 <style>
     body {
-        background-color: #202020;
+        background-color: #050505;
         color: white;
     }
     .full-height-container {
@@ -47,7 +47,7 @@
     }
     #drop-zone {
         margin-top: 20px;
-        border: 2px dashed #4CAF50;
+        border: 2px dashed #ad1838;
         height: 200px; /* Increased height */
         padding: 20px;
         border-radius: 10px;
@@ -85,16 +85,16 @@
 
     dropZone.addEventListener("dragover", (e) => {
         e.preventDefault();
-        dropZone.style.borderColor = "#00FF00"; // Highlight border
+        dropZone.style.borderColor = "#ad1888"; // Highlight border
     });
 
     dropZone.addEventListener("dragleave", () => {
-        dropZone.style.borderColor = "#4CAF50"; // Reset border color
+        dropZone.style.borderColor = "#ad1838"; // Reset border color
     });
 
     dropZone.addEventListener("drop", (e) => {
         e.preventDefault();
-        dropZone.style.borderColor = "#4CAF50"; // Reset border color
+        dropZone.style.borderColor = "#ad1838"; // Reset border color
 
         if (e.dataTransfer.files.length) {
             fileInput.files = e.dataTransfer.files; // Assign dropped files to the input

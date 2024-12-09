@@ -7,42 +7,54 @@
     <div class="row flex-grow-1 d-flex justify-content-center align-items-center">
         <div class="col-md-12 text-center">
             <div class="container">
-                <h1>Malaria Detection Result</h1>
+                <h1>Malaria Detection Result</h1><br><br>
 
-                <!-- Image Section -->
-                <img src="{{ file_url }}" alt="Uploaded Image" style="max-width: 300px; margin: 20px auto; display: block;">
+                <!-- Results Box -->
+                <div style="
+                    margin: 20px auto;
+                    padding: 20px;
+                    border: 1px solid {{ 'red' if result == 'Infected' else '#4CAF50' }};
+                    border-radius: 15px;
+                    background-color: #050505;
+                    width: 80%;
+                    max-width: 400px;
+                    text-align: center;
+                ">
+                    <!-- Image Section -->
+                    <img src="{{ file_url }}" alt="Uploaded Image" style="max-width: 100%; border-radius: 10px;">
 
-                <!-- Results Section -->
-                <br> <h3>Results of analysis:</h3>
-                <h4 style="font-size: 40px; color: {{ 'red' if result == 'Infected' else '#00CC00' }}"><b>{{ result }}</b></h4>
+                    <!-- Results Section -->
+                    <h3 style="margin-top: 20px;">Results of analysis:</h3>
+                    <h4 style="font-size: 40px; color: {{ 'red' if result == 'Infected' else '#00CC00' }}"><b>{{ result }}</b></h4>
 
-                <!-- Confidence Section -->
-                <div style="margin-top: 20px;">
-                    <h5>Confidence:</h5>
-                    <h4 style="font-size: 24px; 
-                               font-weight: bold; 
-                               color: rgb(
-                                   {{ 255 - 255 * ((confidence - 50) / 50) }}, 
-                                   {{ 200 * ((confidence - 50) / 50) }}, 
-                                   0
-                               );">
-                        {{ "%.2f" % confidence }}%
-                    </h4>
+                    <!-- Confidence Section -->
+                    <div style="margin-top: 20px;">
+                        <h5>Confidence:</h5>
+                        <h4 style="font-size: 24px; 
+                                   font-weight: bold; 
+                                   color: rgb(
+                                       {{ 255 - 255 * ((confidence - 50) / 50) }}, 
+                                       {{ 200 * ((confidence - 50) / 50) }}, 
+                                       0
+                                   );">
+                            {{ "%.2f" % confidence }}%
+                        </h4>
+                    </div>
                 </div>
 
                 <!-- Navigation Link -->
-                <br> <a href="{{ url_for('main.index') }}" 
+                <br><a href="{{ url_for('main.index') }}" 
                     style="margin-top: 20px; 
-                        display: inline-block; 
-                        background-color: #4CAF50; 
-                        color: white; 
-                        border: none; 
-                        padding: 10px 20px; 
-                        font-size: 16px; 
-                        text-align: center; 
-                        cursor: pointer; 
-                        border-radius: 5px; 
-                        text-decoration: none;">
+                           display: inline-block; 
+                           background-color: #ad1838; 
+                           color: white; 
+                           border: none; 
+                           padding: 10px 20px; 
+                           font-size: 16px; 
+                           text-align: center; 
+                           cursor: pointer; 
+                           border-radius: 5px; 
+                           text-decoration: none;">
                     Try Another Image
                 </a>
             </div>
@@ -52,7 +64,7 @@
 
 <style>
     body {
-        background-color: #202020; /* Match the background color of index.html */
+        background-color: #050505; /* Match the background color of index.html */
         color: white;
     }
     .full-height-container {
