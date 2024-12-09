@@ -8,14 +8,17 @@
         <div class="col-md-12 text-center">
             <div class="container">
                 <img src="{{ url_for('static', filename='img/cells.webp') }}" alt="Site Logo" style="max-width: 400px; height: auto; margin-bottom: 0px;">
-                <h1>Malaria Detection App</h1>
+                <h1>Malaria Detection App</h1><br>
 
-                <h4>Drag and drop an image to let the AI model detect if it is infected with malaria or not</h4>
+                <!-- <h4>Drag and drop an image to let the AI model detect if it is infected with malaria or not</h4> -->
 
                 <!-- File Drop Zone Section -->
                 <form action="{{ url_for('main.analysis') }}" method="POST" enctype="multipart/form-data" id="upload-form">
                     <div id="drop-zone">
-                        <p id="drop-zone-text">Drag & drop your file here or click to upload</p>
+                        <p id="drop-zone-text">Drag & drop the cell image here or click to upload.<br>
+                            The AI Model will then determine if the cell is infected or not.<br>
+                            (Supported formats: .jpg, .jpeg, .png)</p>
+                        <img id="file-preview" src="" alt="File Preview" style="max-width: 100%; max-height: 100%; display: none; border-radius: 5px;">
                         <input type="file" name="file" id="file-upload" accept=".jpg,.jpeg,.png">
                     </div>
                     <button type="submit" style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; font-size: 16px; margin-top: 20px; cursor: pointer; border-radius: 5px;">
@@ -56,6 +59,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        overflow: hidden; /* Prevent overflow if image is too large */
     }
     #drop-zone p {
         margin: 0;
@@ -63,12 +67,16 @@
     #file-upload {
         display: none; /* Hide the default file input */
     }
+    #file-preview {
+        margin-top: 10px;
+    }
 </style>
 
 <script>
     const dropZone = document.getElementById("drop-zone");
     const fileInput = document.getElementById("file-upload");
     const dropZoneText = document.getElementById("drop-zone-text");
+    const filePreview = document.getElementById("file-preview");
     const uploadForm = document.getElementById("upload-form");
 
     dropZone.addEventListener("click", () => {
@@ -90,16 +98,28 @@
 
         if (e.dataTransfer.files.length) {
             fileInput.files = e.dataTransfer.files; // Assign dropped files to the input
-            const fileName = e.dataTransfer.files[0].name; // Get file name
-            dropZoneText.textContent = `Selected file: ${fileName}`;
+            const file = e.dataTransfer.files[0]; // Get the first file
+            showFilePreview(file);
         }
     });
 
     fileInput.addEventListener("change", () => {
         if (fileInput.files.length) {
-            const fileName = fileInput.files[0].name; // Get file name
-            dropZoneText.textContent = `Selected file: ${fileName}`;
+            const file = fileInput.files[0]; // Get the first file
+            showFilePreview(file);
         }
     });
+
+    function showFilePreview(file) {
+        if (file && file.type.startsWith("image/")) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                filePreview.src = e.target.result; // Set the preview image source
+                filePreview.style.display = "block"; // Make the image visible
+                dropZoneText.style.display = "none"; // Hide the text
+            };
+            reader.readAsDataURL(file); // Read the file as a data URL
+        }
+    }
 </script>
 {% endblock %}
