@@ -8,7 +8,7 @@
         <div class="col-md-12 text-center">
             <div class="container">
                 <img src="{{ url_for('static', filename='img/cells.webp') }}" alt="Site Logo" style="max-width: 400px; height: auto; margin-bottom: 0px;">
-                <h1>Use AI to determine if a cell</h1>
+                <h1>Use AI to detect if a cell</h1>
                 <h1>is infected or not</h1><br>
 
                 <!-- <h4>Drag and drop an image to let the AI model detect if it is infected with malaria or not</h4> -->
@@ -16,13 +16,13 @@
                 <!-- File Drop Zone Section -->
                 <form action="{{ url_for('main.analysis') }}" method="POST" enctype="multipart/form-data" id="upload-form">
                     <div id="drop-zone">
-                        <p id="drop-zone-text">Drag & drop the cell image here or click to upload.<br>
+                        <p id="drop-zone-text"><b style="color: {{ Config.NOT_INF_COLOR }};">Drag & drop the cell image here</b> or click to upload.<br>
                             The AI Model will then determine if the cell is infected or not.<br>
                             (Supported formats: .jpg, .jpeg, .png)</p>
                         <img id="file-preview" src="" alt="File Preview" style="max-width: 100%; max-height: 100%; display: none; border-radius: 5px;">
                         <input type="file" name="file" id="file-upload" accept=".jpg,.jpeg,.png">
                     </div>
-                    <button type="submit" style="background-color: #ad1838; color: white; border: none; padding: 10px 20px; font-size: 16px; margin-top: 20px; cursor: pointer; border-radius: 5px;">
+                    <button type="submit" style="background-color: {{ Config.NOT_INF_COLOR }}; color: white; border: none; padding: 10px 20px; font-size: 16px; margin-top: 20px; cursor: pointer; border-radius: 5px;">
                         <img src="https://img.icons8.com/?size=100&id=62903&format=png&color=FFFFFF" alt="Search Icon" style="max-height: 20px;"> Analyze
                     </button>
                 </form>
@@ -48,7 +48,7 @@
     }
     #drop-zone {
         margin-top: 20px;
-        border: 2px dashed #ad1838;
+        border: 2px dashed {{ Config.NOT_INF_COLOR }};
         height: 200px; /* Increased height */
         padding: 20px;
         border-radius: 10px;
@@ -86,16 +86,16 @@
 
     dropZone.addEventListener("dragover", (e) => {
         e.preventDefault();
-        dropZone.style.borderColor = "#ad1888"; // Highlight border
+        dropZone.style.borderColor = "{{ Config.INF_COLOR }}"; // Highlight border
     });
 
     dropZone.addEventListener("dragleave", () => {
-        dropZone.style.borderColor = "#ad1838"; // Reset border color
+        dropZone.style.borderColor = "{{ Config.NOT_INF_COLOR }}"; // Reset border color
     });
 
     dropZone.addEventListener("drop", (e) => {
         e.preventDefault();
-        dropZone.style.borderColor = "#ad1838"; // Reset border color
+        dropZone.style.borderColor = "{{ Config.NOT_INF_COLOR }}"; // Reset border color
 
         if (e.dataTransfer.files.length) {
             fileInput.files = e.dataTransfer.files; // Assign dropped files to the input

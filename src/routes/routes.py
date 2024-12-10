@@ -27,52 +27,43 @@ def index():
 @main.route('/analysis', methods=['POST'])
 def analysis():
     if 'file' not in request.files or not request.files['file']:
+        print("No file uploaded")
         flash("No file uploaded. Please upload an image.")
-        print(f"{Config.RED}No file uploaded. Please upload an image.{Config.RESET}")
         return redirect(url_for('main.index'))
-    
+
     file = request.files['file']
+    print(f"File received: {file.filename}")
 
     try:
         # Save the uploaded file in src/static/uploads
         file_path = os.path.join(current_app.static_folder, "uploads", file.filename)
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
         file.save(file_path)
+        print(f"File saved to: {file_path}")
 
         # Preprocess the image
         image = load_img(file_path, target_size=(Config.IMG_SIZE, Config.IMG_SIZE))
         image = img_to_array(image)
         image = np.expand_dims(image, axis=0)  # Add batch dimension
         image = image / 255.0  # Normalize to [0, 1]
+        print("Image preprocessed")
 
         # Predict using the loaded model
-        prediction = model.predict(image)
-        result = "Infected" if prediction[0][0] < 0.5 else "Not Infected"
+        prediction = float(model.predict(image))  # Get the prediction value
+        print(f"Prediction: {prediction}")
+
+        # Determine result
+        result = "Infected" if prediction < 0.5 else "Not Infected"
+        print(f"Result: {result}")
 
         # Generate the file URL
         file_url = url_for('static', filename=f'uploads/{file.filename}')
-        
-        # Calculate result and confidence
-        if prediction[0][0] < 0.5:
-            result = "Infected"
-            confidence = (1 - prediction[0][0]) * 100  # Map prediction to 50%-100%
-        else:
-            result = "Not Infected"
-            confidence = prediction[0][0] * 100  # Map prediction to 50%-100%
+        print(f"File URL: {file_url}")
 
         # Render the analysis result
-        return render_template('analysis.html', result=result, file_url=file_url, confidence=confidence)
+        return render_template('analysis.html', result=result, file_url=file_url, prediction=prediction)
 
     except Exception as e:
+        print(f"Error: {str(e)}")
         flash(f"An error occurred: {str(e)}")
-        print(f"{Config.RED}An error occurred:{Config.RESET} {str(e)}")
         return redirect(url_for('main.index'))
-    
-@main.route('/static-test')
-def static_test():
-    test_path = url_for('static', filename='img/logo.png')
-    return f"Static file URL: {test_path}"
-
-@main.route('/debug-static')
-def debug_static():
-    return f"Static folder: {current_app.static_folder}"

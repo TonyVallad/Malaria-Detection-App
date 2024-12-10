@@ -9,6 +9,12 @@ class Config:
     RED = "\033[91m"
     RESET = "\033[0m"  # White
     
+    # Page Color Palette
+    # INF_COLOR = "#ad1888"
+    NOT_INF_COLOR = "#ad1838"
+    INF_COLOR = "#9A54B3"
+    # NOT_INF_COLOR = "#C60C31"
+    
     # Image settings
     IMG_SIZE = 128
     BATCH_SIZE = 32

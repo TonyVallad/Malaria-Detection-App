@@ -7,13 +7,13 @@
     <div class="row flex-grow-1 d-flex justify-content-center align-items-center">
         <div class="col-md-12 text-center">
             <div class="container">
-                <h1>Malaria Detection Result</h1><br><br>
+                <h1>Malaria Detection Result</h1><br>
 
                 <!-- Results Box -->
                 <div style="
                     margin: 20px auto;
                     padding: 20px;
-                    border: 1px solid {{ 'red' if result == 'Infected' else '#4CAF50' }};
+                    border: 2px solid {{ Config.INF_COLOR if result == 'Infected' else Config.NOT_INF_COLOR }};
                     border-radius: 15px;
                     background-color: #050505;
                     width: 80%;
@@ -21,32 +21,63 @@
                     text-align: center;
                 ">
                     <!-- Image Section -->
-                    <img src="{{ file_url }}" alt="Uploaded Image" style="max-width: 100%; border-radius: 10px;">
+                    <div style="
+                        width: 200px;
+                        height: 200px;
+                        margin: 0 auto;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        overflow: hidden;
+                    ">
+                        <img src="{{ file_url }}" alt="Uploaded Image" style="max-height: 195px; max-width: 195px;">
+                    </div>
 
                     <!-- Results Section -->
                     <h3 style="margin-top: 20px;">Results of analysis:</h3>
-                    <h4 style="font-size: 40px; color: {{ 'red' if result == 'Infected' else '#00CC00' }}"><b>{{ result }}</b></h4>
+                    <h4 style="font-size: 40px; color: {{ Config.INF_COLOR if result == 'Infected' else Config.NOT_INF_COLOR }}"><b>{{ result }}</b></h4>
 
-                    <!-- Confidence Section -->
-                    <div style="margin-top: 20px;">
-                        <h5>Confidence:</h5>
-                        <h4 style="font-size: 24px; 
-                                   font-weight: bold; 
-                                   color: rgb(
-                                       {{ 255 - 255 * ((confidence - 50) / 50) }}, 
-                                       {{ 200 * ((confidence - 50) / 50) }}, 
-                                       0
-                                   );">
-                            {{ "%.2f" % confidence }}%
-                        </h4>
+                    <!-- Gauge Graph Section -->
+                    <div style="
+                        height: 200px;
+                        margin-top: 10px;
+                        display: flex;
+                        align-items: flex-start;
+                        justify-content: center;
+                    ">
+                        <svg width="300" height="180">
+                            <defs>
+                                <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color: {{ Config.NOT_INF_COLOR }}; stop-opacity: 1;" />
+                                    <stop offset="100%" style="stop-color: {{ Config.INF_COLOR }}; stop-opacity: 1;" />
+                                </linearGradient>
+                            </defs>
+                            <!-- Perfect 180-degree arc -->
+                            <path d="M50,120 A100,100 0 0,1 250,120" 
+                                  fill="none" 
+                                  stroke="url(#gaugeGradient)" 
+                                  stroke-width="20" />
+                            <!-- Bar indicator pointing towards center -->
+                            <line 
+                                x1="{{ 150 + 90 * cos(pi * prediction) }}" 
+                                y1="{{ 120 - 90 * sin(pi * prediction) }}" 
+                                x2="{{ 150 + 110 * cos(pi * prediction) }}" 
+                                y2="{{ 120 - 110 * sin(pi * prediction) }}" 
+                                stroke="white" 
+                                stroke-width="2" />
+
+                            <!-- Labels for the gauge -->
+                            <text x="50" y="145" font-size="14" fill="{{ Config.NOT_INF_COLOR }}" text-anchor="start">Not Infected</text>
+                            <text x="250" y="145" font-size="14" fill="{{ Config.INF_COLOR }}" text-anchor="end">Infected</text>
+                        </svg>
                     </div>
                 </div>
 
                 <!-- Navigation Link -->
-                <br><a href="{{ url_for('main.index') }}" 
+                <a href="{{ url_for('main.index') }}" 
                     style="margin-top: 20px; 
                            display: inline-block; 
-                           background-color: #ad1838; 
+                           background-color: {{ Config.NOT_INF_COLOR }}; 
                            color: white; 
                            border: none; 
                            padding: 10px 20px; 
