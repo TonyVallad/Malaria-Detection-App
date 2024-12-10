@@ -35,7 +35,7 @@
 
                     <!-- Results Section -->
                     <h3 style="margin-top: 20px;">Results of analysis:</h3>
-                    <h4 style="font-size: 40px; color: {{ Config.INF_COLOR if result == 'Infected' else Config.NOT_INF_COLOR }}"><b>{{ result }}</b></h4>
+                    <!-- <h4 style="font-size: 40px; color: {{ Config.INF_COLOR if result == 'Infected' else Config.NOT_INF_COLOR }}"><b>{{ result }}</b></h4> -->
 
                     <!-- Gauge Graph Section -->
                     <div style="
@@ -71,6 +71,7 @@
                             <text x="250" y="145" font-size="14" fill="{{ Config.INF_COLOR }}" text-anchor="end">Infected</text>
                         </svg>
                     </div>
+                    <h4 style="font-size: 40px; color: {{ Config.INF_COLOR if result == 'Infected' else Config.NOT_INF_COLOR }}"><b>{{ result }}</b></h4>
                 </div>
 
                 <!-- Navigation Link -->
