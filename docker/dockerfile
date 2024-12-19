@@ -1,17 +1,11 @@
-# Use Python slim image as base
 FROM python:3.11-slim
 
-# Set working directory
 WORKDIR /app
 
-# Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    TF_ENABLE_ONEDNN_OPTS=0 \
-    CUDA_VISIBLE_DEVICES=-1 \
+    PYTHONUNBUFFERED=1 \ 
     TF_CPP_MIN_LOG_LEVEL=2
 
-# Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     libffi-dev \
@@ -21,25 +15,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
-# Install Python dependencies
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -U pip && \
     pip install --no-cache-dir gunicorn && \
     pip install --no-cache-dir -r /tmp/requirements.txt
 
-# Create uploads directory and set permissions
-RUN mkdir -p /app/src/static/uploads && \
-    chmod 777 /app/src/static/uploads
+# TODO: create a shell script to check for hardware and install the correct version of tensorflow
 
-# Copy application code
+RUN mkdir -p /app/src/static/uploads && \
+    chmod 775 /app/src/static/uploads
+
 COPY . .
 
-# Expose port
 EXPOSE 8000
-
-# Set healthcheck
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8000/ || exit 1
-
-# Run application with gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "4", "--threads", "2", "app:app"]
