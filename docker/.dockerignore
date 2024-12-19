@@ -1,0 +1,51 @@
+# Version control
+.git/
+.gitignore
+.gitattributes
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local dev files
+.env
+*.log
+
+# Editor directories and files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Project specific
+Model_Creation.ipynb
+temp.text
+docker/
+LICENSE
+*.md
+
+# Testing & coverage
+.coverage
+.coverage.*
+.tox/
+.pytest_cache/
+.mypy_cache/
+nosetests.xml
+coverage.xml
+*.cover
+
+# Data
+src/static/uploads/*
+!src/static/uploads/.gitkeep
+
+# OS generated files
+.DS_Store
+Thumbs.db
