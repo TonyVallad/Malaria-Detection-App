@@ -1,0 +1,30 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \ 
+    TF_CPP_MIN_LOG_LEVEL=2
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libffi-dev \
+    libgl1 \
+    libglib2.0-0 \
+    curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir -U pip && \
+    pip install --no-cache-dir gunicorn && \
+    pip install --no-cache-dir -r /tmp/requirements.txt
+
+# TODO: create a shell script to check for hardware and install the correct version of tensorflow
+
+RUN mkdir -p /app/src/static/uploads && \
+    chmod 775 /app/src/static/uploads
+
+COPY . .
+
+EXPOSE 8000

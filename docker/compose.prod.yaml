@@ -1,0 +1,27 @@
+services:
+  web:
+    build:
+      context: ..
+      dockerfile: docker/dockerfile
+    image: malaria-detection-app:prod
+    container_name: malaria-detection-app-prod
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../src/static/uploads:/app/src/static/uploads
+    environment:
+      - SECRET_KEY=${SECRET_KEY:-your_secure_secret_key}
+      - FLASK_ENV=production
+      - FLASK_APP=app.py
+    command: gunicorn --bind 0.0.0.0:8000 --workers 4 --threads 2 app:app
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
